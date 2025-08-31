@@ -4,10 +4,7 @@
       <Header />
     </header>
     <main>
-
-      <body>
-        <InputPanel />
-      </body>
+      <InputPanel />
     </main>
   </div>
 </template>
