@@ -41,12 +41,11 @@ function buttonEventHandler(event) {
 .header {
   width: 50vw;
   padding: 1em;
-  background: linear-gradient(180deg, #aee8f75e, #fdfdfd98);
+  background: linear-gradient(180deg, var(--primary-blue), #fdfdfd98);
   justify-content: center;
   margin: 0 auto;
   display: flex;
   border-radius: 6px;
-  position: sticky;
 }
 
 nav ul {
@@ -61,7 +60,7 @@ nav ul {
 nav button {
   background: none;
   border: none;
-  color: gray;
+  color: var(--primary-gray);
   font-size: 1em;
   cursor: pointer;
 }

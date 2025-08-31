@@ -10,6 +10,7 @@ import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 
+// Define initial props
 const props = defineProps({
   content: {
     type: String,
@@ -21,6 +22,7 @@ const props = defineProps({
   },
 })
 
+// Initialize the editor
 const editor = useEditor({
   extensions: [
     StarterKit,
@@ -38,23 +40,19 @@ const editor = useEditor({
   border: 1px solid;
   border-radius: 6px;
   min-height: 200px;
-  width: 100%;
   line-height: 0.8em;
   box-shadow: 0 2px 6px #bbbbbb;
-  border: 0.5px solid #ffffff;
-  transition: all 0.25s ease;
+  border: 0.5px solid var(--primary-blue);
   line-height: 1.2em;
   color: black;
 }
 
 .ProseMirror:focus {
   outline: none;
-  border: none;
-  box-shadow: none;
 }
 
 p.is-empty::before {
   content: attr(data-placeholder);
-  color: gray;
+  color: var(--primary-gray);
 }
 </style>

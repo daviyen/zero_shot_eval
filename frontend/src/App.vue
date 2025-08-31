@@ -6,9 +6,7 @@
     <main>
 
       <body>
-        <div class="input-panel">
-          <InputPanel />
-        </div>
+        <InputPanel />
       </body>
     </main>
   </div>
@@ -18,11 +16,4 @@ import Header from './components/Header.vue'
 import InputPanel from './components/InputPanel.vue';
 </script>
 
-<style scoped>
-.input-panel {
-  width: 75%;
-  padding: 1em;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-</style>
+<style></style>
