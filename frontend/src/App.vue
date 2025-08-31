@@ -1,11 +1,20 @@
-<script setup></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div id="app">
+    <Header />
+    <main>
+      <p>WIP...</p>
+    </main>
+  </div>
 </template>
+<script>
+import Header from './components/Header.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Header,
+  },
+}
+</script>
 
 <style scoped></style>
