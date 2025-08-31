@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Header />
+    <header>
+      <Header />
+    </header>
     <main>
       <p>WIP...</p>
     </main>
@@ -10,7 +12,7 @@
 import Header from './components/Header.vue'
 
 export default {
-  name: 'App',
+  name: 'GLiNER Evaluation Tool',
   components: {
     Header,
   },
