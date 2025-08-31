@@ -1,4 +1,4 @@
-<!-- This is the implementation of the Header Component -->
+<!-- This is the implementation of the header component -->
 <template>
   <header class="header">
     <nav>
@@ -13,33 +13,27 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: 'Header',
-  data() {
-    return {
-      buttons: [
-        { text: 'Upload', event: 'upload' },
-        { text: 'Import', event: 'import' },
-      ]
-    }
-  },
-  methods: {
-    // Implementation of button event listener
-    buttonEventHandler(event) {
-      console.log(`Button event: ${event}`)
-      switch (event) {
-        case 'upload':
-          //TODO: Implement API call logic here
-          break
-        case 'import':
-          //TODO: Implement API call logic here
-          break
-        default:
-          console.warn(`Unknown event: ${event}`)
-      }
-    },
-  },
+<script setup>
+import { ref } from 'vue'
+
+const buttons = ref([
+  { text: 'Upload', event: 'upload' },
+  { text: 'Import', event: 'import' },
+])
+
+// Implementation of button event listener
+function buttonEventHandler(event) {
+  console.log(`Button event: ${event}`)
+  switch (event) {
+    case 'upload':
+      //TODO: Implement API call logic here
+      break
+    case 'import':
+      //TODO: Implement API call logic here
+      break
+    default:
+      console.warn(`Unknown event: ${event}`)
+  }
 }
 </script>
 
@@ -47,12 +41,11 @@ export default {
 .header {
   width: 50vw;
   padding: 1em;
-  background: linear-gradient(180deg, #aee8f75e, #fdfdfd98);
+  background: linear-gradient(180deg, var(--primary-blue), #fdfdfd98);
   justify-content: center;
   margin: 0 auto;
   display: flex;
   border-radius: 6px;
-  position: sticky;
 }
 
 nav ul {
@@ -67,7 +60,7 @@ nav ul {
 nav button {
   background: none;
   border: none;
-  color: grey;
+  color: var(--primary-gray);
   font-size: 1em;
   cursor: pointer;
 }

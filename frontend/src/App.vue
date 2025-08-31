@@ -4,19 +4,13 @@
       <Header />
     </header>
     <main>
-      <p>WIP...</p>
+      <InputPanel />
     </main>
   </div>
 </template>
-<script>
+<script setup>
 import Header from './components/Header.vue'
-
-export default {
-  name: 'GLiNER Evaluation Tool',
-  components: {
-    Header,
-  },
-}
+import InputPanel from './components/InputPanel.vue';
 </script>
 
-<style scoped></style>
+<style></style>
