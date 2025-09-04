@@ -4,7 +4,7 @@
       <Header />
     </header>
     <main>
-      <InputPanel />
+      <InputPanel class="inputPanel" />
     </main>
   </div>
 </template>
@@ -13,4 +13,8 @@ import Header from './components/Header.vue'
 import InputPanel from './components/InputPanel.vue';
 </script>
 
-<style></style>
+<style>
+.inputPanel {
+  top: 5em;
+}
+</style>
