@@ -16,6 +16,7 @@
 <script setup>
 import { ref } from 'vue'
 
+// Initialize state variable references
 const buttons = ref([
   { text: 'Upload', event: 'upload' },
   { text: 'Import', event: 'import' },

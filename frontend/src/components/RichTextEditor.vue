@@ -22,7 +22,7 @@ const props = defineProps({
   },
 })
 
-// Initialize the editor
+// Initialize the editor and its placeholder
 const editor = useEditor({
   extensions: [
     StarterKit,

@@ -1,3 +1,4 @@
+<!-- This is the Applications entry point -->
 <template>
   <div id="app">
     <header>

@@ -1,4 +1,4 @@
-<!-- This is the implementation of the input panel component -->
+<!-- This is the implementation of the output panel component -->
 <template>
   <div class="output-panel">
     <RichTextEditor />
@@ -6,6 +6,8 @@
     <div class="slider-container">
       <input type="range" min="1" max="100" v-model="similarity" id="similarity-slider" />
       <span>Similarity: {{ similarity }}%</span>
+      <input type="checkbox" id="toggle-ground-truth" v-model="showGroundTruth"
+        :title="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" />
     </div>
     <button id="export-button">Export</button>
   </div>
@@ -15,11 +17,20 @@
 import RichTextEditor from './RichTextEditor.vue';
 import { ref } from 'vue';
 
+// Initialize state references
 const similarity = ref(40);
+const showGroundTruth = ref(false);
 
 </script>
 
 <style scoped>
+#toggle-ground-truth {
+  accent-color: var(--primary-blue);
+  margin-left: 1em;
+  display: block;
+  position: relative;
+}
+
 #similarity-slider {
   accent-color: var(--primary-blue);
 }
