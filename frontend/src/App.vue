@@ -8,10 +8,12 @@
       <InputPanel class="inputPanel" />
       <OutputPanel class="outputPanel" />
     </main>
+    <AnalysisSidebar />
   </div>
 </template>
 <script setup>
-import Header from './components/Header.vue'
+import AnalysisSidebar from './components/AnalysisSidebar.vue';
+import Header from './components/Header.vue';
 import InputPanel from './components/InputPanel.vue';
 import OutputPanel from './components/OutputPanel.vue';
 </script>

@@ -32,7 +32,6 @@ const editor = useEditor({
   ],
   content: props.content || '',
 })
-
 </script>
 
 <style>
@@ -42,9 +41,13 @@ const editor = useEditor({
   min-height: 200px;
   line-height: 0.8em;
   box-shadow: 0 2px 6px #bbbbbb;
-  border: 0.5px solid var(--primary-blue);
+  border: 0.5px solid var(--primary-gray);
   line-height: 1.2em;
   color: black;
+}
+
+.ProseMirror {
+  padding: 0 1em;
 }
 
 .ProseMirror:focus {

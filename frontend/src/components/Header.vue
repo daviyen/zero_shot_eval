@@ -42,7 +42,7 @@ function buttonEventHandler(event) {
 .header {
   width: 50vw;
   padding: 1em;
-  background: linear-gradient(180deg, var(--primary-blue), #fdfdfd98);
+  background: linear-gradient(180deg, var(--primary-blue), #fdfdfd9d);
   justify-content: center;
   margin: 0 auto;
   display: flex;

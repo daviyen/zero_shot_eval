@@ -2,10 +2,10 @@
 <template>
   <div class="input-panel">
     <RichTextEditor />
-    <button id="run-button">Run</button>
+    <el-button type="primary" id="run-button">Run</el-button>
     <div class="navigate-button">
-      <button>&lt;&lt;</button>
-      <button>&gt;&gt;</button>
+      <el-button type="primary">&lt;&lt;</el-button>
+      <el-button type="primary">&gt;&gt;</el-button>
     </div>
   </div>
 </template>

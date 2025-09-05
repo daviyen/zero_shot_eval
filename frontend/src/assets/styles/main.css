@@ -1,21 +1,4 @@
 :root {
-  --primary-blue: #aee8f75e;
-  --primary-gray: #9c9c9c;
-}
-
-button {
-  border-radius: 4px;
-  padding: 0.5em 1em;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: white;
-}
-
-button:hover {
-  background-color: var(--primary-blue);
-}
-
-button:active {
-  transform: scale(0.98);
-  background-color: var(--primary-blue);
+  --primary-blue: #a0cfff;
+  --primary-gray: #7a7a7a;
 }

@@ -2,14 +2,14 @@
 <template>
   <div class="output-panel">
     <RichTextEditor />
-    <button id="run-button">Save</button>
+    <el-button type="primary" id="run-button">Save</el-button>
     <div class="slider-container">
-      <input type="range" min="1" max="100" v-model="similarity" id="similarity-slider" />
+      <el-slider v-model="similarity" id="similarity-slider" />
       <span>Similarity: {{ similarity }}%</span>
       <input type="checkbox" id="toggle-ground-truth" v-model="showGroundTruth"
         :title="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" />
     </div>
-    <button id="export-button">Export</button>
+    <el-button type="primary" id="export-button">Export</el-button>
   </div>
 </template>
 
@@ -17,26 +17,23 @@
 import RichTextEditor from './RichTextEditor.vue';
 import { ref } from 'vue';
 
-// Initialize state references
+// Initialize state variables
 const similarity = ref(40);
 const showGroundTruth = ref(false);
 
 </script>
 
 <style scoped>
-#toggle-ground-truth {
-  accent-color: var(--primary-blue);
-  margin-left: 1em;
-  display: block;
+.output-panel {
+  width: 50vw;
+  padding: 1em;
+  box-sizing: border-box;
   position: relative;
-}
-
-#similarity-slider {
-  accent-color: var(--primary-blue);
 }
 
 #run-button {
   margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #export-button {
@@ -47,15 +44,26 @@ const showGroundTruth = ref(false);
 
 .slider-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: -2em
+  justify-content: center;
+  gap: 1em;
+  margin: 1em 0;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
 }
 
-.output-panel {
-  width: 50vw;
-  padding: 1em;
-  box-sizing: border-box;
-  position: relative;
+
+#similarity-slider {
+  width: 200px;
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+
+#toggle-ground-truth {
+  accent-color: var(--primary-blue);
+  flex-shrink: 0;
+  margin-left: 0.5em;
 }
 </style>
