@@ -1,15 +1,22 @@
-<!-- This is the implementation of the output panel component -->
+<!-- This is the implementation of the OutputPanel component -->
 <template>
   <div class="output-panel">
     <RichTextEditor />
-    <button id="run-button">Save</button>
-    <div class="slider-container">
-      <input type="range" min="1" max="100" v-model="similarity" id="similarity-slider" />
-      <span>Similarity: {{ similarity }}%</span>
-      <input type="checkbox" id="toggle-ground-truth" v-model="showGroundTruth"
-        :title="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" />
+
+    <div class="action-bar">
+      <el-button type="primary" id="run-button">Save</el-button>
+
+      <div class="slider-wrapper">
+        <el-slider v-model="similarity" style="width: 200px;" />
+        <div class="slider-info">
+          <span>Similarity: {{ similarity }}%</span>
+          <el-tooltip :content="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" placement="top">
+            <el-checkbox label="Toggle Ground Truth" id="toggle-ground-truth" v-model="showGroundTruth" />
+          </el-tooltip>
+        </div>
+      </div>
+      <el-button type="primary" id="export-button">Export</el-button>
     </div>
-    <button id="export-button">Export</button>
   </div>
 </template>
 
@@ -17,45 +24,55 @@
 import RichTextEditor from './RichTextEditor.vue';
 import { ref } from 'vue';
 
-// Initialize state references
+// Initialize state variables
 const similarity = ref(40);
 const showGroundTruth = ref(false);
 
 </script>
 
 <style scoped>
-#toggle-ground-truth {
-  accent-color: var(--primary-blue);
-  margin-left: 1em;
-  display: block;
-  position: relative;
-}
-
-#similarity-slider {
-  accent-color: var(--primary-blue);
-}
-
-#run-button {
-  margin-top: 0.5em;
-}
-
-#export-button {
-  position: absolute;
-  bottom: -1.5em;
-  right: 1em;
-}
-
-.slider-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: -2em
-}
-
 .output-panel {
   width: 50vw;
   padding: 1em;
-  box-sizing: border-box;
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0em;
+  gap: 1em;
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+}
+
+#export-button,
+#run-button {
+  margin-top: -2em;
+}
+
+.slider-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span {
+  color: var(--el-text-color-secondary);
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
+}
+
+::v-deep(.el-checkbox__label) {
+  color: var(--el-text-color-secondary);
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
 }
 </style>

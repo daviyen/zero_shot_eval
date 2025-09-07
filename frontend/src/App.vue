@@ -1,17 +1,19 @@
-<!-- This is the Applications entry point -->
+<!-- This is the Application entry point -->
 <template>
   <div id="app">
     <header>
       <Header />
     </header>
-    <main>
+    <el-main>
       <InputPanel class="inputPanel" />
       <OutputPanel class="outputPanel" />
-    </main>
+    </el-main>
+    <AnalysisSidebar />
   </div>
 </template>
 <script setup>
-import Header from './components/Header.vue'
+import AnalysisSidebar from './components/AnalysisSidebar.vue';
+import Header from './components/Header.vue';
 import InputPanel from './components/InputPanel.vue';
 import OutputPanel from './components/OutputPanel.vue';
 </script>
@@ -22,6 +24,6 @@ import OutputPanel from './components/OutputPanel.vue';
 }
 
 .outputPanel {
-  top: 5em;
+  margin-top: 5em;
 }
 </style>

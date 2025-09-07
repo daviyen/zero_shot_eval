@@ -2,10 +2,10 @@
 <template>
   <div class="input-panel">
     <RichTextEditor />
-    <button id="run-button">Run</button>
-    <div class="navigate-button">
-      <button>&lt;&lt;</button>
-      <button>&gt;&gt;</button>
+    <el-button type="primary" id="run-button">Run</el-button>
+    <div class="navigate-buttons">
+      <el-button type="primary">&lt;&lt;</el-button>
+      <el-button type="primary">&gt;&gt;</el-button>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ import RichTextEditor from './RichTextEditor.vue';
   margin-top: 0.5em;
 }
 
-.navigate-button {
+.navigate-buttons {
   position: absolute;
   bottom: 1em;
   right: 1em;
@@ -29,7 +29,6 @@ import RichTextEditor from './RichTextEditor.vue';
 .input-panel {
   width: 50vw;
   padding: 1em;
-  box-sizing: border-box;
   position: relative;
 }
 </style>
