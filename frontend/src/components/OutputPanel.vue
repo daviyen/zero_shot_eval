@@ -1,15 +1,22 @@
-<!-- This is the implementation of the output panel component -->
+<!-- This is the implementation of the OutputPanel component -->
 <template>
   <div class="output-panel">
     <RichTextEditor />
-    <el-button type="primary" id="run-button">Save</el-button>
-    <div class="slider-container">
-      <el-slider v-model="similarity" id="similarity-slider" />
-      <span>Similarity: {{ similarity }}%</span>
-      <input type="checkbox" id="toggle-ground-truth" v-model="showGroundTruth"
-        :title="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" />
+
+    <div class="action-bar">
+      <el-button type="primary" id="run-button">Save</el-button>
+
+      <div class="slider-wrapper">
+        <el-slider v-model="similarity" style="width: 200px;" />
+        <div class="slider-info">
+          <span>Similarity: {{ similarity }}%</span>
+          <el-tooltip :content="showGroundTruth ? 'Show GLiNER output.' : 'Show ground truth.'" placement="top">
+            <el-checkbox label="Toggle Ground Truth" id="toggle-ground-truth" v-model="showGroundTruth" />
+          </el-tooltip>
+        </div>
+      </div>
+      <el-button type="primary" id="export-button">Export</el-button>
     </div>
-    <el-button type="primary" id="export-button">Export</el-button>
   </div>
 </template>
 
@@ -27,43 +34,45 @@ const showGroundTruth = ref(false);
 .output-panel {
   width: 50vw;
   padding: 1em;
-  box-sizing: border-box;
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0em;
+  gap: 1em;
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
 }
 
+#export-button,
 #run-button {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: -2em;
 }
 
-#export-button {
-  position: absolute;
-  bottom: -1.5em;
-  right: 1em;
-}
-
-.slider-container {
+.slider-info {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1em;
-  margin: 1em 0;
-  flex-wrap: nowrap;
-  width: 100%;
-  overflow: hidden;
 }
 
-
-#similarity-slider {
-  width: 200px;
-  min-width: 150px;
-  flex-shrink: 0;
+span {
+  color: var(--el-text-color-secondary);
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
 }
 
-
-#toggle-ground-truth {
-  accent-color: var(--primary-blue);
-  flex-shrink: 0;
-  margin-left: 0.5em;
+::v-deep(.el-checkbox__label) {
+  color: var(--el-text-color-secondary);
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
 }
 </style>

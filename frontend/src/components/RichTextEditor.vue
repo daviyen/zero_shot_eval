@@ -27,7 +27,7 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Placeholder.configure({
-      placeholder: 'Raw user input or import something from the system...',
+      placeholder: 'Raw user input or import from the system...',
     }),
   ],
   content: props.content || '',
@@ -40,10 +40,13 @@ const editor = useEditor({
   border-radius: 6px;
   min-height: 200px;
   line-height: 0.8em;
-  box-shadow: 0 2px 6px #bbbbbb;
-  border: 0.5px solid var(--primary-gray);
+  box-shadow: 0 2px 6px var(--el-border-color-light);
+  border: 0.5px solid var(--el-border-color-light);
   line-height: 1.2em;
   color: black;
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
 }
 
 .ProseMirror {
