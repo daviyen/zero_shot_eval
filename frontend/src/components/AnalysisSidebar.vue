@@ -4,6 +4,7 @@
     <!--- Entity Input section -->
     <div class="entityInput">
       <el-divider>Add Custom Entity</el-divider>
+      <!--- Add user generated custom entities... -->
       <div class="customEntityControls">
         <el-input placeholder="Entity Name..." v-model="customEntity.name" style="width: 150px;" />
         <el-color-picker v-model="customEntity.color" :predefine="predefineColors" />
@@ -18,30 +19,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const customEntity = ref({
-  name: '',
-  color: 'rgb(0, 128, 128)'
+  name: "",
+  color: "rgb(0, 128, 128)"
 })
-const entities = ref([]); // Move this to a pinia store ?
+const entities = ref([]); // TODO: Move this to a pinia store?
 // Predefined colors for the color picker
 const predefineColors = ref([
-  'rgb(128, 0, 128)',
-  'rgb(0, 128, 128)',
-  'rgb(128, 128, 0)',
-  'rgb(0, 128, 0)',
-  'rgb(0, 0, 128)',
-  'rgb(128, 0, 0)',
-  'rgb(255, 120, 0)',
+  "rgb(128, 0, 128)",
+  "rgb(0, 128, 128)",
+  "rgb(128, 128, 0)",
+  "rgb(0, 128, 0)",
+  "rgb(0, 0, 128)",
+  "rgb(128, 0, 0)",
+  "rgb(255, 120, 0)",
 ])
 
 // Add new entity to the entities list
 function addEntity() {
   if (customEntity.value) {
     entities.value.push({ ...customEntity.value });
-    customEntity.value.name = '';
-    customEntity.value.color = 'rgb(0, 128, 128)';
+    // set custom entity values back to defaults
+    customEntity.value.name = "";
+    customEntity.value.color = "rgb(0, 128, 128)";
   }
 }
 </script>

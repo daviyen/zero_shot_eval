@@ -11,22 +11,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue"
 
-// Initialize state variables
+// Initialize state variables. More Buttons can be added here.
 const buttons = ref([
-  { text: 'Upload', event: 'upload' },
-  { text: 'Import', event: 'import' },
+  { text: "Upload", event: "upload" },
+  { text: "Import", event: "import" },
 ])
 
-// Implementation of button event listener
+// Implementation of Button event listener
 function buttonEventListener(event) {
   console.log(`Button event: ${event}`)
   switch (event) {
-    case 'upload':
+    case "upload":
       //TODO: Implement API call logic here
       break
-    case 'import':
+    case "import":
       //TODO: Implement API call logic here
       break
     default:

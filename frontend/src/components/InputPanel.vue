@@ -2,7 +2,7 @@
 <template>
   <div class="input-panel">
     <RichTextEditor />
-    <el-button type="primary" id="run-button">Run</el-button>
+    <el-button type="primary" id="run-button" @click="runNER">Run</el-button>
     <div class="navigate-buttons">
       <el-button type="primary">&lt;&lt;</el-button>
       <el-button type="primary">&gt;&gt;</el-button>
@@ -11,7 +11,33 @@
 </template>
 
 <script setup>
-import RichTextEditor from './RichTextEditor.vue';
+import RichTextEditor from "./RichTextEditor.vue";
+/**
+ * Function to call the NER API to perform a zero-shot NER.
+ * TODO: Replace hardcoded Postman test API-call with dynamic input.
+ *  */
+async function runNER() {
+  try {
+    const response = await fetch("http://localhost:3000/api/ner", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // changes here
+        text: "Hans Peter lives in Berlin and works for Deutsche Bahn.",
+        labels: ["Person", "Location"]
+      }),
+    });
+    if (!response.ok) {
+      const error = await response.text();
+      console.error("Request failed. ERROR:", error);
+      return;
+    }
+    const data = await response.json();
+    console.log("Entities:", data.entities);
+  } catch (err) {
+    console.error("SOME ERROR:", err);
+  }
+}
 
 </script>
 

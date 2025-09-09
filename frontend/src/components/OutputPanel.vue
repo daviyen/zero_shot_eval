@@ -2,10 +2,9 @@
 <template>
   <div class="output-panel">
     <RichTextEditor />
-
+    <!-- Implementing Buttons, Checkbox and Slider below Output Panel-->
     <div class="action-bar">
       <el-button type="primary" id="run-button">Save</el-button>
-
       <div class="slider-wrapper">
         <el-slider v-model="similarity" style="width: 200px;" />
         <div class="slider-info">
