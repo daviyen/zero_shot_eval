@@ -13,6 +13,7 @@ npm run dev
 
 ## Backend Setup
 You need `Python3` and a package manager such as `pip`.
+Create .env according to `.env.examples`
 
 ```
 cd backend
