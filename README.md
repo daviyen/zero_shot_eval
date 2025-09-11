@@ -11,3 +11,22 @@ npm install
 npm run dev
 ```
 
+## Backend Setup
+You need `Python3` and a package manager such as `pip`.
+Create .env according to `.env.examples`
+
+```
+cd backend
+pip install gliner fastapi[standard]
+npm install express axios mongodb cors
+```
+
+Run GLiNER FastAPI Server on localhost with port 8000:
+```
+uvicorn main:app --reload --port 8000
+```
+
+Run Express Server on localhost with port 3000:
+```
+node server.js
+```

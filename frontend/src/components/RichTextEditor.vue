@@ -6,15 +6,15 @@
 </template>
 
 <script setup>
-import { useEditor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
+import { useEditor, EditorContent } from "@tiptap/vue-3"
+import StarterKit from "@tiptap/starter-kit"
+import Placeholder from "@tiptap/extension-placeholder"
 
 // Define initial props
 const props = defineProps({
   content: {
     type: String,
-    default: '',
+    default: "",
   },
   labels: {
     type: Array,
@@ -27,10 +27,10 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Placeholder.configure({
-      placeholder: 'Raw user input or import from the system...',
+      placeholder: "Raw user input or import from the system...",
     }),
   ],
-  content: props.content || '',
+  content: props.content || "",
 })
 </script>
 
