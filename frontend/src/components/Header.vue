@@ -24,7 +24,10 @@ function buttonEventListener(event) {
   console.log(`Button event: ${event}`)
   switch (event) {
     case "upload":
-      //TODO: Implement API call logic here
+      //TODO: Implement API call logic here (replace test logic)
+      fetch('http://localhost:3000/api/db-test')
+        .then(res => res.json())
+        .then(res => console.log(res));
       break
     case "import":
       //TODO: Implement API call logic here

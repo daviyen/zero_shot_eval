@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const nerRouter = require("./routes/ner");
+const testRouter = require("./routes/mongodb_test");
 const cors = require("cors");
 
 //  require .env
@@ -15,5 +16,8 @@ app.use(cors({
   origin: FRONTEND,
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
+// Use route for zero-shot NER
 app.use('/api', nerRouter);
+// Use test route for testing local MongoDB integration
+app.use('/api', testRouter);
 app.listen(PORT, () => console.log("Server listening on port: 3000"));
