@@ -8,6 +8,7 @@
 const express = require("express");
 const app = express();
 const nerRouter = require("./routes/ner");
+const importRouter = require("./routes/import");
 //const testRouter = require("./routes/mongodb_test");
 const uploadRouter = require("./routes/upload");
 const cors = require("cors");
@@ -24,4 +25,5 @@ app.use(cors({
 app.use('/api', nerRouter);
 //app.use('/api', testRouter);
 app.use('/api', uploadRouter);
+app.use('/api', importRouter);
 app.listen(PORT, () => console.log("Server listening on port: 3000"));

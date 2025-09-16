@@ -22,12 +22,12 @@ pip install gliner fastapi[standard]
 npm install express axios mongodb cors
 ```
 
-Run GLiNER FastAPI Server on localhost with port 8000:
+Run GLiNER FastAPI Server on localhost:
 ```
 uvicorn main:app --reload --port 8000
 ```
 
-Run Express Server on localhost with port 3000:
+Run Express Server on localhost:
 ```
 node server.js
 ```
