@@ -26,6 +26,7 @@ const customEntity = ref({
   color: "rgb(0, 128, 128)"
 })
 const entities = ref([]); // TODO: Move this to a pinia store?
+
 // Predefined colors for the color picker
 const predefineColors = ref([
   "rgb(128, 0, 128)",
@@ -37,11 +38,12 @@ const predefineColors = ref([
   "rgb(255, 120, 0)",
 ])
 
-// Add new entity to the entities list
+/**
+ * Add a custom entity to the entity list.
+ */
 function addEntity() {
   if (customEntity.value) {
     entities.value.push({ ...customEntity.value });
-    // set custom entity values back to defaults
     customEntity.value.name = "";
     customEntity.value.color = "rgb(0, 128, 128)";
   }

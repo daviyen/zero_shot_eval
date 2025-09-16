@@ -1,0 +1,5 @@
+{
+    "text": "This is a Text",
+    "labels": ["label1", "label2"],
+    "groundTruth": "This is the ground truth"
+}
