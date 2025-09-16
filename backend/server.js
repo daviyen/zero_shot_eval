@@ -1,11 +1,16 @@
-// Implementation of an Express Server handling requests and forwarding them to the respective route
+/**
+ * Implementation of an Express Server handling requests and forwarding them to the respective routes.
+ * Routes:
+ * - /api/ner: Gateway to FastAPI service for zero-shot NER
+ * - /api/upload: Uploading annotated data to MongoDB
+ * - /api/mongodb_test: for testing local MongoDB integration only (not in use in prod)
+ */
 const express = require("express");
 const app = express();
 const nerRouter = require("./routes/ner");
-const testRouter = require("./routes/mongodb_test");
+//const testRouter = require("./routes/mongodb_test");
+const uploadRouter = require("./routes/upload");
 const cors = require("cors");
-
-//  require .env
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const FRONTEND = process.env.FRONTEND || "http://localhost:5173";
@@ -16,8 +21,7 @@ app.use(cors({
   origin: FRONTEND,
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
-// Use route for zero-shot NER
 app.use('/api', nerRouter);
-// Use test route for testing local MongoDB integration
-app.use('/api', testRouter);
+//app.use('/api', testRouter);
+app.use('/api', uploadRouter);
 app.listen(PORT, () => console.log("Server listening on port: 3000"));

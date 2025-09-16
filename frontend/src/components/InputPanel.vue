@@ -14,7 +14,7 @@
 import RichTextEditor from "./RichTextEditor.vue";
 /**
  * Function to call the NER API to perform a zero-shot NER.
- * TODO: Replace hardcoded Postman test API-call with dynamic input.
+ * TODO: Replace hardcoded API-calls with dynamic input.
  *  */
 async function runNER() {
   try {

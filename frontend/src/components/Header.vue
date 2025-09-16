@@ -2,38 +2,77 @@
 <template>
   <el-header class="header">
     <nav>
-      <el-button v-for="(button, index) in buttons" :key="index" @click="buttonEventListener(button.event)"
-        style="margin-right: 1em;">
-        {{ button.text }}
+      <el-button @click="buttonEventListener('upload')" style="margin-right: 1em;">
+         Upload
       </el-button>
+      <el-button @click="buttonEventListener('import')" style="margin-right: 1em;">
+         Import
+      </el-button>
+      <!-- Invisible file input which accepts JSON files and  is being triggered inside the buttonEventListener -->
+      <input ref="fileInput" type="file" @change="fileInputHandler" multiple accept=".json"  id="fileInput">
     </nav>
   </el-header>
 </template>
 
 <script setup>
 import { ref } from "vue"
+import { checkUploadFormat } from "../scripts/formatChecker.js"
 
-// Initialize state variables. More Buttons can be added here.
-const buttons = ref([
-  { text: "Upload", event: "upload" },
-  { text: "Import", event: "import" },
-])
+const fileInput = ref(null);
+const API_URL = import.meta.env.VITE_API_URL || "";
 
-// Implementation of Button event listener
+/**
+ * Handles the button click events.
+ * @param event - button event
+ * @returns void
+ */
 function buttonEventListener(event) {
-  console.log(`Button event: ${event}`)
+  //console.log(`Button event: ${event}`)
   switch (event) {
     case "upload":
-      //TODO: Implement API call logic here (replace test logic)
-      fetch('http://localhost:3000/api/db-test')
-        .then(res => res.json())
-        .then(res => console.log(res));
-      break
+      fileInput.value.click();
+      break;
     case "import":
-      //TODO: Implement API call logic here
       break
     default:
       console.warn(`Unknown event: ${event}`)
+  }
+}
+
+/**
+ * Handles file input event by checking for a correct format and uploads valid JSON files to the DB.
+ * @param event - file(s) input
+ * @returns void
+ */
+function fileInputHandler(event) {
+  const files = event.target.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    checkUploadFormat(file).then(isValid => {
+      if (isValid) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const json = JSON.parse(e.target.result);
+            //console.log("Uploading file to " + API_URL);
+            fetch(`${API_URL}/upload`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(json),
+            })
+              .then(res => res.json())
+              .catch(err => {
+                console.error(`Upload failed: ${file.name}`, err);
+              });
+          } catch (err) {
+            console.warn("ERROR: ", err);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        console.warn(`File "${file.name}" has an invalid format. Skipping upload.`);
+      }
+    });
   }
 }
 </script>
@@ -47,5 +86,9 @@ function buttonEventListener(event) {
   margin: 0 auto;
   display: flex;
   border-radius: 6px;
+}
+
+#fileInput {
+  display: none;
 }
 </style>

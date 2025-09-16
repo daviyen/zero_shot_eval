@@ -1,6 +1,5 @@
 ###
-#  Load GLiNER and expose a FastAPI endpoint for zero-shot NER (according to https://fastapi.tiangolo.com/#example-upgrade)
-#  on port 8000.
+#  Load GLiNER and expose a FastAPI endpoint for zero-shot NER (according to https://fastapi.tiangolo.com/#example-upgrade).
 #  Runs the actual zero-shot NER and forwards the results as JSON to the Express backend.
 ###
 from fastapi import FastAPI
