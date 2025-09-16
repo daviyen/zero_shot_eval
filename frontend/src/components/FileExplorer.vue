@@ -1,0 +1,30 @@
+<template>
+  <div class="file-explorer">
+    <el-table
+      :data="importStore.getFileList"
+      @row-click="rowClickHander"
+      highlight-current-row
+      >
+      <el-table-column prop="filename" label="Filename" width="180" />
+    </el-table>
+  </div>
+</template>
+
+<script setup>
+import { useImportStore } from "../stores/importStore.js";
+const importStore = useImportStore();
+
+function rowClickHander(row) {
+  console.log("Row clicked: ", row);
+}
+
+</script>
+
+<style scoped>
+.file-explorer {
+  background: var(--el-bg-color-light);
+  height: 50vh;
+  width: 20vw;
+  overflow-y: auto;
+}
+</style>

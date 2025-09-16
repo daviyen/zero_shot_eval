@@ -55,6 +55,7 @@ function fileUploadHandler(event) {
         reader.onload = (e) => {
           try {
             const json = JSON.parse(e.target.result);
+            json.filename = file.name;
             //console.log("Uploading file to " + API_URL);
             fetch(`${API_URL}/upload`, {
               method: "POST",
