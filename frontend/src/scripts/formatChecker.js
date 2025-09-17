@@ -12,8 +12,7 @@ export function checkUploadFormat(file) {
         const jsonFile = JSON.parse(fileAsText);
         //console.log("Reading file...", jsonFile);
         if (typeof jsonFile.text === "string"
-              && (!jsonFile.labels || Array.isArray(jsonFile.labels))
-              && (!jsonFile.groundTruth || typeof jsonFile.groundTruth === "string")) {
+              && (!jsonFile.labels || Array.isArray(jsonFile.labels))) {
           resolve(true);
         }
         resolve(false);

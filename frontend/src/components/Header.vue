@@ -9,7 +9,7 @@
          Import
       </el-button>
       <!-- Invisible file input which accepts JSON files and  is being triggered inside the buttonEventListener -->
-      <input ref="fileInput" type="file" @change="fileInputHandler" multiple accept=".json"  id="fileInput">
+      <input ref="fileUpload" type="file" @change="fileUploadHandler" multiple accept=".json"  id="fileUpload">
     </nav>
   </el-header>
 </template>
@@ -17,9 +17,11 @@
 <script setup>
 import { ref } from "vue"
 import { checkUploadFormat } from "../scripts/formatChecker.js"
+import { useImportStore } from "../stores/importStore.js"
 
-const fileInput = ref(null);
+const fileUpload = ref(null);
 const API_URL = import.meta.env.VITE_API_URL || "";
+const importStore = useImportStore();
 
 /**
  * Handles the button click events.
@@ -30,21 +32,20 @@ function buttonEventListener(event) {
   //console.log(`Button event: ${event}`)
   switch (event) {
     case "upload":
-      fileInput.value.click();
+      fileUpload.value.click();
       break;
     case "import":
-      break
-    default:
-      console.warn(`Unknown event: ${event}`)
+      fileImportHandler();
+      break;
   }
 }
 
 /**
- * Handles file input event by checking for a correct format and uploads valid JSON files to the DB.
- * @param event - file(s) input
+ * Handles file upload event by checking for a correct format and uploads valid JSON files to the DB.
+ * @param event - input file(s)
  * @returns void
  */
-function fileInputHandler(event) {
+function fileUploadHandler(event) {
   const files = event.target.files;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
@@ -54,6 +55,7 @@ function fileInputHandler(event) {
         reader.onload = (e) => {
           try {
             const json = JSON.parse(e.target.result);
+            json.filename = file.name;
             //console.log("Uploading file to " + API_URL);
             fetch(`${API_URL}/upload`, {
               method: "POST",
@@ -75,6 +77,26 @@ function fileInputHandler(event) {
     });
   }
 }
+
+/**
+ * Calls for the import API to get all uploaded files from the DB and store them in the import Store.
+ * @returns void
+ */
+function fileImportHandler() {
+  console.log("Importing file...");
+  fetch(`${API_URL}/import`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then(res => res.json())
+    .then(data => {
+      importStore.setFileList(data);
+      console.log(JSON.stringify(importStore.getFileList));
+    })
+    .catch(err => {
+      console.error("Import failed: ", err);
+    })
+}
 </script>
 
 <style scoped>
@@ -88,7 +110,7 @@ function fileInputHandler(event) {
   border-radius: 6px;
 }
 
-#fileInput {
+#fileUpload {
   display: none;
 }
 </style>

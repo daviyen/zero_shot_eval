@@ -1,4 +1,3 @@
 {
-    "labels": ["label1", "label2"],
-    "groundTruth": "This is the ground truth"
+    "labels": ["label1", "label2"]
 }

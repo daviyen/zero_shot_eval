@@ -32,7 +32,7 @@ router.post("/upload", async (req, res) => {
     res.json({ message: "Upload successful", result });
   } catch (error) {
     //console.error("Upload error: ", error);
-    res.status(500).json({ message: "Upload failed", error: error.message });
+    res.status(500).json("Something went wrong: " + error.message);
   }
 });
 

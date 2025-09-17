@@ -1,7 +1,7 @@
 <!-- This is the implementation of the OutputPanel component -->
 <template>
   <div class="output-panel">
-    <RichTextEditor />
+    <RichTextEditor type="output" />
     <div class="action-bar">
       <el-button type="primary" id="run-button">Save</el-button>
       <div class="slider-wrapper">

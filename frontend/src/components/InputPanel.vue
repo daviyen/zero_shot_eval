@@ -1,17 +1,22 @@
 <!-- This is the implementation of the input panel component -->
 <template>
   <div class="input-panel">
-    <RichTextEditor />
+    <RichTextEditor type="input"/>
     <el-button type="primary" id="run-button" @click="runNER">Run</el-button>
     <div class="navigate-buttons">
-      <el-button type="primary">&lt;&lt;</el-button>
-      <el-button type="primary">&gt;&gt;</el-button>
+      <div class="file">{{ importStore.getSelectedFile ? importStore.getSelectedFile.filename : "No file selected..." }}</div>
+      <el-button type="primary" @click="fileScrollingHandler('prev')">&lt;&lt;</el-button>
+      <el-button type="primary" @click="fileScrollingHandler('fwd')">&gt;&gt;</el-button>
     </div>
   </div>
 </template>
 
 <script setup>
 import RichTextEditor from "./RichTextEditor.vue";
+import { useImportStore } from "@/stores/importStore";
+
+const importStore = useImportStore();
+
 /**
  * Function to call the NER API to perform a zero-shot NER.
  * TODO: Replace hardcoded API-calls with dynamic input.
@@ -39,9 +44,30 @@ async function runNER() {
   }
 }
 
+function fileScrollingHandler(dir) {
+  let currentFileIndex = importStore.getFileList.findIndex(file => file._id === importStore.getSelectedFile._id);
+  switch(dir) {
+    case "prev":
+      if( currentFileIndex >= 1 && currentFileIndex < importStore.getFileList.length ) {
+      importStore.setSelectedFile(importStore.getFileList[currentFileIndex - 1]);
+      }
+      break;
+    case "fwd":
+      if( currentFileIndex < importStore.getFileList.length - 1 ) {
+      importStore.setSelectedFile(importStore.getFileList[currentFileIndex + 1]);
+      }
+      break;
+  }
+}
+
 </script>
 
 <style scoped>
+.file {
+  text-align: center;
+  margin-right: 18vw;
+}
+
 #run-button {
   margin-top: 0.5em;
 }
@@ -50,6 +76,8 @@ async function runNER() {
   position: absolute;
   bottom: 1em;
   right: 1em;
+  display: flex;
+  align-items: center;
 }
 
 .input-panel {
