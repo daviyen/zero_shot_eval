@@ -1,7 +1,7 @@
 <!-- This is the implementation of the input panel component -->
 <template>
   <div class="input-panel">
-    <RichTextEditor />
+    <RichTextEditor type="input"/>
     <el-button type="primary" id="run-button" @click="runNER">Run</el-button>
     <div class="navigate-buttons">
       <el-button type="primary">&lt;&lt;</el-button>
@@ -12,6 +12,7 @@
 
 <script setup>
 import RichTextEditor from "./RichTextEditor.vue";
+import { useImportStore } from "../stores/importStore.js";
 /**
  * Function to call the NER API to perform a zero-shot NER.
  * TODO: Replace hardcoded API-calls with dynamic input.

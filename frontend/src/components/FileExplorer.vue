@@ -15,7 +15,8 @@ import { useImportStore } from "../stores/importStore.js";
 const importStore = useImportStore();
 
 function rowClickHander(row) {
-  console.log("Row clicked: ", row);
+  //console.log("Row clicked: ", row);
+  importStore.setSelectedFile(row);
 }
 
 </script>
@@ -23,7 +24,7 @@ function rowClickHander(row) {
 <style scoped>
 .file-explorer {
   background: var(--el-bg-color-light);
-  height: 50vh;
+  height: 90vh;
   width: 20vw;
   overflow-y: auto;
 }
