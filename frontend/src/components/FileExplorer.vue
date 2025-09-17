@@ -3,7 +3,7 @@
     <el-table
       :data="importStore.getFileList"
       @row-click="rowClickHander"
-      highlight-current-row
+      :current-row="importStore.getSelectedFile || null"
       >
       <el-table-column prop="filename" label="Filename" width="180" />
     </el-table>

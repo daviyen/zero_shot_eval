@@ -35,7 +35,7 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Placeholder.configure({
-      placeholder: "...",
+      placeholder: props.type === "input" ? "Type your text here or import from the system..." : "GLiNER output...",
     }),
   ],
   content: props.content || "",
