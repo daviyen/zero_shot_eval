@@ -23,5 +23,7 @@ class PredictionRequest(BaseModel):
 @app.post("/ner")
 async def run_ner(req: PredictionRequest):
     # Run GLiNER NER
+    if not req.labels:
+        return { "ERROR! Label list is empty!"}
     res = gliner_med.predict_entities(req.text, req.labels, threshold=0.5, multi_label=False) # TODO: threshold should be variable through API
     return {"entityList": res}

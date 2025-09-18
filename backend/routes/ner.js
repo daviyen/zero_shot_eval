@@ -13,14 +13,14 @@ const FASTAPI = process.env.FASTAPI || "http://localhost:8000/ner";
  * which is responsible for running the zero-shot NER
 */
 router.post("/ner", async (req, res) => {
-    //console.log("Request Body:", req.body);
+    console.log("Request Body:", req.body);
     try {
         // Async POST request for zero-shot NER to FastAPI backend so it doesnt block other actions
         const response = await axios.post(FASTAPI, req.body);
-        //console.log("FastAPI response:", response.data);
+        console.log("FastAPI response:", response.data);
         res.json(response.data);
     } catch (error) {
-        console.error("ERROR: ", error.message);
+        console.error("BACKEND ERROR: ", error.message);
     }
 });
 module.exports = router;

@@ -13,7 +13,6 @@ import { watch } from "vue"
 import { useImportStore } from "@/stores/importStore"
 
 const importStore = useImportStore();
-
 // Define initial props
 const props = defineProps({
   content: {
@@ -35,7 +34,7 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Placeholder.configure({
-      placeholder: props.type === "input" ? "Type your text here or import from the system..." : "GLiNER output...",
+      placeholder: props.type === "input" ? "Import file(s) from the system..." : "GLiNER output...",
     }),
   ],
   content: props.content || "",
@@ -50,6 +49,13 @@ watch(() => importStore.getSelectedFile, (newFile) => {
     editor.value.commands.setContent(newFile.text, false);
   }
 })
+
+/*
+watch(() => outputStore.getEntityList, (newNER) => {
+  if( editor.value && props.type === "output") {
+    editor.value.commands.setContent(newNER, false);
+  }
+})*/
 </script>
 
 <style>

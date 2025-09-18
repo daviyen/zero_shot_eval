@@ -14,8 +14,10 @@
 <script setup>
 import RichTextEditor from "./RichTextEditor.vue";
 import { useImportStore } from "@/stores/importStore";
+import { useOutputStore } from "@/stores/outputStore";
 
 const importStore = useImportStore();
+const outputStore = useOutputStore();
 
 /**
  * Function to call the NER API to perform a zero-shot NER.
@@ -23,22 +25,18 @@ const importStore = useImportStore();
  *  */
 async function runNER() {
   try {
+    //console.log("Running zero-shot NER for file: " + importStore.getSelectedFile);
     const response = await fetch("http://localhost:3000/api/ner", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // changes here
-        text: "Hans Peter lives in Berlin and works for Deutsche Bahn.",
-        labels: ["Person", "Location"]
+        text: importStore.getSelectedFile.text || "",
+        labels: importStore.getSelectedFile.labels || [],
       }),
     });
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("Request failed. ERROR:", error);
-      return;
-    }
     const data = await response.json();
-    console.log("Entities:", data.entities);
+    console.log("Data: ", data.entityList);
+    outputStore.setEntityList(JSON.stringify(data.entityList) || []);
   } catch (err) {
     console.error("SOME ERROR:", err);
   }

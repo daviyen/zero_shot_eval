@@ -25,7 +25,6 @@ import { ref } from 'vue';
 // Initialize state variables
 const similarity = ref(40);
 const showGroundTruth = ref(false);
-
 </script>
 
 <style scoped>
