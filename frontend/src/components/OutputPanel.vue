@@ -1,9 +1,7 @@
 <!-- This is the implementation of the OutputPanel component -->
 <template>
   <div class="output-panel">
-    <RichTextEditor type="output" />
-    <div class="action-bar">
-      <el-button type="primary" id="run-button">Save</el-button>
+    <EditorContent v-if=editor :editor="editor" class="text-editor" />
       <div class="slider-wrapper">
         <el-slider v-model="similarity" style="width: 200px;" />
         <div class="slider-info">
@@ -13,18 +11,40 @@
           </el-tooltip>
         </div>
       </div>
-      <el-button type="primary" id="export-button">Export</el-button>
     </div>
-  </div>
 </template>
 
 <script setup>
-import RichTextEditor from './RichTextEditor.vue';
+import { useEditor, EditorContent } from "@tiptap/vue-3"
+import StarterKit from "@tiptap/starter-kit"
 import { ref } from 'vue';
 
 // Initialize state variables
 const similarity = ref(40);
 const showGroundTruth = ref(false);
+
+const props = defineProps({
+  content: {
+    type: String,
+    default: "<p>GLiNER output...</p>",
+  },
+  labels: {
+    type: Array,
+    default: [],
+  },
+  type: {
+    type: String,
+    default: "",
+  }
+})
+
+// Initialize the editor and its placeholder
+const editor = useEditor({
+  extensions: [
+    StarterKit
+  ],
+  content: props.content ? props.content : null,
+})
 </script>
 
 <style scoped>
@@ -33,24 +53,12 @@ const showGroundTruth = ref(false);
   padding: 1em;
 }
 
-.action-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0em;
-  gap: 1em;
-}
 
 .slider-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-}
-
-#export-button,
-#run-button {
-  margin-top: -2em;
 }
 
 .slider-info {
@@ -71,5 +79,27 @@ span {
   font-family: var(--el-font-family);
   font-size: var(--el-font-size-base);
   font-weight: var(--el-font-weight-primary);
+}
+
+.text-editor {
+  border: 1px solid;
+  border-radius: 6px;
+  min-height: 200px;
+  line-height: 0.8em;
+  box-shadow: 0 2px 6px var(--el-border-color-light);
+  border: 0.5px solid var(--el-border-color-light);
+  line-height: 1.2em;
+  color: black;
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
+}
+
+.ProseMirror {
+  padding: 0 1em;
+}
+
+.ProseMirror:focus {
+  outline: none;
 }
 </style>

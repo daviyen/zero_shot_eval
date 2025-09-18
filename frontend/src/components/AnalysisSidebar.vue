@@ -20,6 +20,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useImportStore } from "@/stores/importStore.js";
+import { useOutputStore } from "@/stores/outputStore.js";
+
+const importStore = useImportStore();
+const outputStore = useOutputStore();
 
 const customEntity = ref({
   name: "",

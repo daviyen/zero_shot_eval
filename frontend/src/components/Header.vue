@@ -8,6 +8,9 @@
       <el-button @click="buttonEventListener('import')" style="margin-right: 1em;">
          Import
       </el-button>
+      <el-button @click="buttonEventListener('save')" style="margin-right: 1em;">
+         Save
+      </el-button>
       <!-- Invisible file input which accepts JSON files and  is being triggered inside the buttonEventListener -->
       <input ref="fileUpload" type="file" @change="fileUploadHandler" multiple accept=".json"  id="fileUpload">
     </nav>
@@ -36,6 +39,9 @@ function buttonEventListener(event) {
       break;
     case "import":
       fileImportHandler();
+      break;
+    case "save":
+      console.log("Save button clicked.");
       break;
   }
 }
@@ -83,7 +89,7 @@ function fileUploadHandler(event) {
  * @returns void
  */
 function fileImportHandler() {
-  console.log("Importing file...");
+  //console.log("Importing file...");
   fetch(`${API_URL}/import`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
