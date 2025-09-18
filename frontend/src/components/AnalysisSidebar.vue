@@ -12,6 +12,11 @@
       </div>
       <!-- Remaining dividers -->
       <el-divider>Entity List</el-divider>
+      <ul>
+        <li v-for="entity in entities" :key="entity.name">
+          {{ entity.name }}
+        </li>
+      </ul>
       <el-divider>Span Analysis</el-divider>
       <el-divider>Additional(?)</el-divider>
     </div>
@@ -19,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useImportStore } from "@/stores/importStore.js";
 import { useOutputStore } from "@/stores/outputStore.js";
 
@@ -30,7 +35,8 @@ const customEntity = ref({
   name: "",
   color: "rgb(0, 128, 128)"
 })
-const entities = ref([]); // TODO: Move this to a pinia store?
+const entities = ref([]);
+const usedColors = ref([]);
 
 // Predefined colors for the color picker
 const predefineColors = ref([
@@ -53,6 +59,15 @@ function addEntity() {
     customEntity.value.color = "rgb(0, 128, 128)";
   }
 }
+
+watch (() => importStore.getSelectedFile, (newFile) => {
+  if(newFile && newFile.labels) {
+    entities.value = newFile.labels.map(label => ({
+      name: label,
+      color: "TODO"
+    }))
+  }
+})
 </script>
 
 <style>
