@@ -9,6 +9,9 @@ export const useEntityStore = defineStore("entity", () =>{
   function setEntities(payload) {
     entities.value = payload;
   }
-  return { entities, setEntities };
+  function removeEntity(name) {
+    entities.value = entities.value.filter(e => e.name !== name);
+  }
+  return { entities, setEntities, removeEntity };
   }
 );

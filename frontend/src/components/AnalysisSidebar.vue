@@ -14,7 +14,7 @@
       <el-divider>Entity List</el-divider>
       <ul>
         <li v-for="entity in entityStore.entities" :key="entity.name" :style="{ color: entity.color }">
-          {{ entity.name }}
+          {{ entity.name }} <el-button type="text" :icon="Delete" @click="entityStore.removeEntity(entity.name)"/>
         </li>
       </ul>
       <el-divider>Span Analysis</el-divider>
@@ -28,6 +28,7 @@ import { ref, watch } from "vue";
 import { useImportStore } from "@/stores/importStore.js";
 import { useColorStore } from "@/stores/colorStore.js";
 import { useEntityStore } from "@/stores/entityStore.js";
+import { Delete } from '@element-plus/icons-vue';
 
 const importStore = useImportStore();
 const colorStore = useColorStore();
