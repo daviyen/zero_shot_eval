@@ -14,6 +14,10 @@
 import { useImportStore } from "../stores/importStore.js";
 const importStore = useImportStore();
 
+/**
+ * Handle row click events in the file explorer.
+ * @param row - clicked row
+ */
 function rowClickHander(row) {
   //console.log("Row clicked: ", row);
   importStore.setSelectedFile(row);

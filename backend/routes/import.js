@@ -13,6 +13,9 @@ async function connectToMongoDB() {
     return client.db(DBNAME);
 }
 
+/** Import data from MongoDB 
+ * GET request returns all documents from the Database.
+*/
 router.get("/import", async(req, res) => {
     try {
         const db = await connectToMongoDB();
