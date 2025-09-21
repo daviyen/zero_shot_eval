@@ -14,10 +14,15 @@ export const useImportStore = defineStore("import", {
     },
     setSelectedFile(file) {
       this.selectedFile = file;
-    }
+    },
+    updateSelectedFileText(newText) {
+      if (this.selectedFile) {
+        this.selectedFile.text = newText;
+      }
+    },
   },
   getters: {
     getFileList: (state) => state.fileList,
     getSelectedFile: (state) => state.selectedFile,
-  }
+  },
 });

@@ -42,7 +42,29 @@ function buttonEventListener(event) {
       break;
     case "save":
       //console.log("Save button clicked.");
+      saveFile();
       break;
+  }
+}
+
+/**
+ * Saves the currently selected(and maybe changed) file in the Database.
+ * @returns void
+ */
+function saveFile() {
+  if (importStore.getSelectedFile) {
+    fetch(`${API_URL}/save`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        filename: importStore.getSelectedFile.filename,
+        content: importStore.getSelectedFile
+      }),
+    })
+      .then(res => res.json())
+      .catch(err => {
+        console.error("Save failed: ", err);
+      });
   }
 }
 

@@ -108,6 +108,13 @@ function fileScrollingHandler(dir) {
   }
 }
 
+watch(() => editor.value?.getText(), (newText) => {
+  if(newText) {
+    //console.log("Editor text changed, updating import store with text: " + newText);
+    importStore.updateSelectedFileText(newText);
+    console.log("Import Store Selected File Text: " + importStore.getSelectedFile?.text);
+  }
+})
 </script>
 
 <style scoped>
