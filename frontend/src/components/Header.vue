@@ -41,7 +41,7 @@ function buttonEventListener(event) {
       fileImportHandler();
       break;
     case "save":
-      console.log("Save button clicked.");
+      //console.log("Save button clicked.");
       break;
   }
 }
@@ -97,7 +97,7 @@ function fileImportHandler() {
     .then(res => res.json())
     .then(data => {
       importStore.setFileList(data);
-      console.log(JSON.stringify(importStore.getFileList));
+      //console.log(JSON.stringify(importStore.getFileList));
     })
     .catch(err => {
       console.error("Import failed: ", err);

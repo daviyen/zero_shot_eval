@@ -1,3 +1,6 @@
+/**
+ * Pinia store for managing import-related state, including file list and selected file.
+ */
 import { defineStore } from "pinia";
 
 export const useImportStore = defineStore("import", {

@@ -17,15 +17,17 @@ import StarterKit from "@tiptap/starter-kit"
 import { useImportStore } from "@/stores/importStore";
 import { useOutputStore } from "@/stores/outputStore";
 import { watch } from 'vue';
+import { useEntityStore } from "@/stores/entityStore";
 
 const importStore = useImportStore();
 const outputStore = useOutputStore();
+const entityStore = useEntityStore();
 
 // Define initial props
 const props = defineProps({
   content: {
     type: String,
-    default: "<p>Import file(s) from the system or write something...</p>",
+    default: "Import file(s) from the system or write something...",
   },
   labels: {
     type: Array,
@@ -53,27 +55,43 @@ watch(() => importStore.getSelectedFile, (newFile) => {
 });
 /**
  * Function to call the NER API to perform a zero-shot NER.
- * TODO: Replace hardcoded API-calls with dynamic input.
  *  */
 async function runNER() {
+  const text = editor.value ? editor.value.getText() : "";
+  //const labels = importStore.getSelectedFile?.labels || [];
+  if(entityStore.entities.length === 0) {
+    alert("The Entity list cannot be empty.");
+    return;
+  }
+  if (!text) {
+    alert("The input text cannot be empty.");
+    return;
+  }
   try {
+    //console.log("Sending labels: " + entityStore.entities.map(e => e.name));
     //console.log("Running zero-shot NER for file: " + importStore.getSelectedFile);
     const response = await fetch("http://localhost:3000/api/ner", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        text: editor.value ? editor.value.getText() : "",
-        labels: importStore.getSelectedFile.labels || [],
+        text: editor.value.getText(),
+        labels: entityStore.entities.map(e => e.name),
       }),
     });
     const data = await response.json();
-    console.log("Data: ", data.entityList);
+    //console.log("Data: ", data.entityList);
     outputStore.setEntityList(JSON.stringify(data.entityList) || []);
+    outputStore.setText(editor.value ? editor.value.getText() : "");
+    //console.log("Output Store Text: ", outputStore.getText);
   } catch (err) {
     console.error("SOME ERROR:", err);
   }
 }
 
+/**
+ * Handle file scrolling in the file explorer.
+ * @param dir - scrolling direction ("prev" or "fwd")
+ */
 function fileScrollingHandler(dir) {
   let currentFileIndex = importStore.getFileList.findIndex(file => file._id === importStore.getSelectedFile._id);
   switch(dir) {
@@ -128,13 +146,5 @@ function fileScrollingHandler(dir) {
   font-family: var(--el-font-family);
   font-size: var(--el-font-size-base);
   font-weight: var(--el-font-weight-primary);
-}
-
-.ProseMirror {
-  padding: 0 1em;
-}
-
-.ProseMirror:focus {
-  outline: none;
 }
 </style>
