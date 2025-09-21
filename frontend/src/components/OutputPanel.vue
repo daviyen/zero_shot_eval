@@ -72,7 +72,27 @@ watch(() => outputStore.getText, (newText) => {
       const baseColor = entityStore.entities.find( e => e.name.toLowerCase() === entity.label.toLowerCase())?.color || "rgb(0, 0, 0)";
       //console.log("BaseColor: " + baseColor  + " for entity: " + entity.label + " with score: " + entity.score + " and text from: " + entity.start + " to: " + entity.end);
       editor.value.commands.setTextSelection({ from: entity.start + 1, to: entity.end + 1 });
-      // TODO: MAYBE ADJUST ALPHA VALUE TO SIMILARITY VALUE LATER (TOOK TOO LONG)
+      // TODO: MAYBE ADJUST ALPHA VALUE TO SIMILARITY VALUE LATER
+      editor.value.commands.setColor(baseColor);
+    }
+  }
+});
+
+/**
+ * Watch for changes in the similarity slider to update entity highlighting based on the new threshold.
+ * @param newValue - new similarity threshold value
+ */
+watch (similarity, (newValue) => {
+  //console.log("Similarity changed to: " + newValue);
+  const entitiesAsValidJSON = JSON.parse(outputStore.getEntityList);
+    for (const entity of entitiesAsValidJSON) {
+      if(entity.score < newValue / 100) {
+        editor.value.commands.setTextSelection({ from: entity.start + 1, to: entity.end + 1 });
+        editor.value.commands.unsetColor();
+      }
+    else {
+      const baseColor = entityStore.entities.find( e => e.name.toLowerCase() === entity.label.toLowerCase())?.color || "rgb(0, 0, 0)";
+      editor.value.commands.setTextSelection({ from: entity.start + 1, to: entity.end + 1 });
       editor.value.commands.setColor(baseColor);
     }
   }
