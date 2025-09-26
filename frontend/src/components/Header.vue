@@ -11,6 +11,9 @@
       <el-button @click="buttonEventListener('save')" style="margin-right: 1em;">
          Save
       </el-button>
+      <el-button @click="buttonEventListener('new')" style="margin-right: 1em;">
+         New
+      </el-button>
       <!-- Invisible file input which accepts JSON files and  is being triggered inside the buttonEventListener -->
       <input ref="fileUpload" type="file" @change="fileUploadHandler" multiple accept=".json"  id="fileUpload">
     </nav>
@@ -41,9 +44,27 @@ function buttonEventListener(event) {
       fileImportHandler();
       break;
     case "save":
-      //console.log("Save button clicked.");
       saveFile();
+      fileImportHandler();
       break;
+    case "new":
+      newFile();
+      break;
+  }
+}
+/**
+ * Creates a new file with a user-defined filename and sets it as the currently selected file.
+ * @returns void
+ */
+function newFile() {
+  const filename = window.prompt("Enter a filename...");
+  if (filename) {
+    const newFile = {
+        filename: filename.trim(),
+        text: "",
+        labels: [],
+    };
+    importStore.setSelectedFile(newFile);
   }
 }
 
@@ -63,6 +84,27 @@ function saveFile() {
     })
       .then(res => res.json())
       .catch(err => {
+        console.error("Save failed: ", err);
+      });
+  }
+  else {
+    const filename = window.prompt("Enter a filename...");
+    const newFile = {
+        filename: filename.trim(),
+        text: "",
+        labels: [],
+    };
+    importStore.setSelectedFile(newFile);
+    fetch(`${API_URL}/save`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        filename: importStore.getSelectedFile.filename,
+        content: importStore.getSelectedFile
+      }),
+    })
+    .then(res => res.json())
+    .catch(err => {
         console.error("Save failed: ", err);
       });
   }
