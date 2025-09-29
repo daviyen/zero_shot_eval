@@ -76,12 +76,20 @@ async function runNER() {
       body: JSON.stringify({
         text: editor.value.getText(),
         labels: entityStore.entities.map(e => e.name),
+        model: entityStore.selectedModel || "med",
       }),
     });
     const data = await response.json();
     //console.log("Data: ", data.entityList);
     outputStore.setEntityList(JSON.stringify(data.entityList) || []);
     outputStore.setText(editor.value ? editor.value.getText() : "");
+    entityStore.setPredictedEntities(data.entityList.map((entity, idx) => ({
+      name: entity.label,
+      start: entity.start,
+      end: entity.end,
+      score: entity.score,
+      text: editor.value ? editor.value.getText().substring(entity.start, entity.end) : "",
+    })));
     //console.log("Output Store Text: ", outputStore.getText);
   } catch (err) {
     console.error("SOME ERROR:", err);
