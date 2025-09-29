@@ -3,7 +3,7 @@
   <div class="output-panel">
     <EditorContent v-if=editor :editor="editor" class="text-editor" />
       <div class="slider-wrapper">
-        <el-slider v-model="similarity" style="width: 200px;" />
+        <el-slider v-model="similarity" style="width: 200px;" :min="1"/>
         <div class="slider-info">
           <span>Similarity: {{ similarity }}%</span>
           <!--- Commented out for now, implement later if helpful for evaluation...
@@ -27,7 +27,7 @@ import { Color } from '@tiptap/extension-color'
 import { useEntityStore } from "@/stores/entityStore";
 
 // Initialize state variables
-const similarity = ref(40);
+const similarity = ref(10);
 const outputStore = useOutputStore();
 const entityStore = useEntityStore();
 

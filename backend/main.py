@@ -9,7 +9,10 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # Load GLiNER (https://github.com/urchade/GLiNER) model(s).
+gliner_small = GLiNER.from_pretrained("urchade/gliner_small-v2.1")
 gliner_med = GLiNER.from_pretrained("urchade/gliner_medium-v2.1")
+gliner_large = GLiNER.from_pretrained("urchade/gliner_large-v2.1")
+gliner_multi = GLiNER.from_pretrained("urchade/gliner_multi-v2.1")
 
 # Change model here
 model = gliner_med
@@ -25,5 +28,5 @@ async def run_ner(req: PredictionRequest):
     # Run GLiNER NER
     if not req.labels:
         return { "ERROR! Label list is empty!"}
-    res = gliner_med.predict_entities(req.text, req.labels, threshold=0.5, multi_label=False) # TODO: threshold should be variable through API
+    res = gliner_med.predict_entities(req.text, req.labels, threshold=0.1)
     return {"entityList": res}
