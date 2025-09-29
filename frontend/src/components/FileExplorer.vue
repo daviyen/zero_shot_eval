@@ -5,8 +5,11 @@
       @row-click="rowClickHander"
       :current-row="importStore.getSelectedFile || null"
       >
-      <el-table-column prop="filename" label="Filename" width="180" />
+      <el-table-column prop="filename" label="Filename" width="180"/>
     </el-table>
+    <el-button type="danger" @click="closeFileExplorer" id="close-button" :disabled="importStore.getFileList.length === 0">
+      Close
+    </el-button>
   </div>
 </template>
 
@@ -23,13 +26,26 @@ function rowClickHander(row) {
   importStore.setSelectedFile(row);
 }
 
+/**
+ * Clearing import data inside of File Explorer.
+ */
+function closeFileExplorer() {
+  importStore.setFileList([]);
+  importStore.setSelectedFile(null);
+}
+
 </script>
 
 <style scoped>
 .file-explorer {
   background: var(--el-bg-color-light);
-  height: 90vh;
+  height: 70vh;
   width: 20vw;
   overflow-y: auto;
+}
+
+#close-button {
+  top: 1em;
+  right: 1em;
 }
 </style>
