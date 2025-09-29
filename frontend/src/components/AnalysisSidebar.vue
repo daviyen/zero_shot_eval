@@ -17,8 +17,19 @@
           {{ entity.name }} <el-button type="text" :icon="Delete" @click="entityStore.removeEntity(entity.name)"/>
         </li>
       </ul>
-      <el-divider>Span Analysis</el-divider>
-      <el-divider>Additional</el-divider>
+      <el-divider>Model Selection</el-divider>
+      <el-select v-model="entityStore.selectedModel" placeholder="Medium" style="width: 150px; margin-left: 5em;">
+        <el-option label="Small" value="small" />
+        <el-option label="Medium" value="med" />
+        <el-option label="Large" value="large" />
+        <el-option label="Multi-lingual" value="multi" />
+      </el-select>
+      <el-divider>Predicted Entities</el-divider>
+      <ul>
+        <li v-for="entity in entityStore.predictedEntities" :key="entity.text + entity.start + entity.end" :style="{ color: entity.color }">
+          {{ entity.text }} | Score: {{ entity.score.toFixed(2) }}
+        </li>
+      </ul>
     </div>
   </el-aside>
 </template>

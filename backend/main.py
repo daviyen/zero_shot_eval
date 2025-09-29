@@ -15,18 +15,28 @@ gliner_large = GLiNER.from_pretrained("urchade/gliner_large-v2.1")
 gliner_multi = GLiNER.from_pretrained("urchade/gliner_multi-v2.1")
 
 # Change model here
-model = gliner_med
+#model = gliner_med
 
 # Define NER request base model
 class PredictionRequest(BaseModel):
     text: str
     labels: list[str]
+    model: str = "med"
 
 # Expose endpoint for GLiNER zero-shot NER
 @app.post("/ner")
 async def run_ner(req: PredictionRequest):
+    # Select model based on request
+    models = {
+        "small": gliner_small,
+        "med": gliner_med,
+        "large": gliner_large,
+        "multi": gliner_multi
+    }
+    selection = models.get(req.model, gliner_med)
     # Run GLiNER NER
     if not req.labels:
         return { "ERROR! Label list is empty!"}
-    res = gliner_med.predict_entities(req.text, req.labels, threshold=0.1)
+    print(f"Using model: {req.model} with labels: {req.labels}")
+    res = selection.predict_entities(req.text, req.labels, threshold=0.1)
     return {"entityList": res}
