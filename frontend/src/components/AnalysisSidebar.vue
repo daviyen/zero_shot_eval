@@ -1,6 +1,6 @@
 <!-- This is the implementation of the AnalysisSidebar component -->
 <template>
-  <el-aside class="analysis-sidebar">
+  <el-aside class="analysis-sidebar" style="width: 25em !important;">
     <!--- Entity Input section -->
     <div class="entityInput">
       <el-divider>Add Custom Entity</el-divider>
@@ -27,7 +27,7 @@
       <el-divider>Predicted Entities</el-divider>
       <ul>
         <li v-for="entity in entityStore.predictedEntities" :key="entity.text + entity.start + entity.end" :style="{ color: entity.color }">
-          {{ entity.text }} | Score: {{ entity.score.toFixed(2) }}
+          {{ entity.text }} | Label: {{entity.label || entity.name}} | Score: {{ entity.score.toFixed(2) }}
         </li>
       </ul>
     </div>

@@ -8,9 +8,16 @@ const DBNAME = process.env.DBNAME || "";
 const COLLECTION = process.env.COLLECTION || "";
 
 async function connectToMongoDB() {
+    console.log("Connecting to MongoDB with URI:", MONGODB);
     const client = new MongoClient(MONGODB);
-    await client.connect();
-    return client.db(DBNAME);
+    try {
+        await client.connect();
+        console.log("Connected to MongoDB");
+        return client.db(DBNAME);
+    } catch (err) {
+        console.error("MongoDB connection failed:", err);
+        throw err;
+    }
 }
 
 /** Import data from MongoDB 
@@ -21,9 +28,9 @@ router.get("/import", async(req, res) => {
         const db = await connectToMongoDB();
         const collection = db.collection(COLLECTION);
         const data = collection.find({});
-        //console.log("Importing files from DB...");
         res.json(await data.toArray());
     } catch (error) {
+        console.error("MongoDB connection error:", error);
         res.status(500).json("Something went wrong: " + error.message);
     }
 });

@@ -161,7 +161,7 @@ function fileImportHandler() {
     .then(res => res.json())
     .then(data => {
       importStore.setFileList(data);
-      //console.log(JSON.stringify(importStore.getFileList));
+      console.log(JSON.stringify(importStore.getFileList));
     })
     .catch(err => {
       console.error("Import failed: ", err);

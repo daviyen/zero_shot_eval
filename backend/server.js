@@ -20,7 +20,7 @@ const FRONTEND = process.env.FRONTEND || "http://localhost:5173";
 app.use(express.json());
 // Enable CORS for requests from the frontend (https://www.npmjs.com/package/cors)
 app.use(cors({
-  origin: FRONTEND,
+  origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use('/api', nerRouter);

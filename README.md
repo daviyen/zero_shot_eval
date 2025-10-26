@@ -1,7 +1,7 @@
 # Bachelor Thesis Repository
 
 ## Frontend Setup
-You need `Node.js version >= 20.19.0` and a node package manager of your choice such as `npm or yarn`.
+You need `Node.js version >= 20.19.0` or  `22.12+` and a node package manager of your choice such as `npm or yarn`.
 Create .env in the `frontend` folder according to `.env.examples`
 
 ## Run for Development
