@@ -1,4 +1,4 @@
-# Bachelor Thesis Repository
+# Zero Shot NER Evaluation
 
 ## Frontend Setup
 You need `Node.js version >= 20.19.0` and a node package manager of your choice such as `npm or yarn`.
